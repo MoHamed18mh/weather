@@ -55,4 +55,4 @@ final class ForecastWeatherCitySuccess extends WeatherState {
 final class ForecastWeatherCityFailure extends WeatherState {
   final String error;
   ForecastWeatherCityFailure({required this.error});
-}
+} 

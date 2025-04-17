@@ -1,0 +1,65 @@
+import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+import 'package:weather/utils/app_colors.dart';
+import 'package:weather/views/screens/home/home_screen.dart';
+
+PersistentTabController _controller = PersistentTabController(initialIndex: 0);
+
+class PersistentBottomNavBar extends StatelessWidget {
+  const PersistentBottomNavBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return PersistentTabView(
+      context,
+      controller: _controller,
+      screens: _buildScreens(),
+      items: _navBarsItems(),
+      navBarStyle: NavBarStyle.style6,
+      padding: const EdgeInsets.symmetric(vertical: 7),
+      backgroundColor: AppColors.secondaryBlack,
+    );
+  }
+}
+
+List<Widget> _buildScreens() {
+  return [
+    const HomeScreen(),
+    const Center(child: Text('Search')),
+    const Center(child: Text('Profile')),
+    const Center(child: Text('Settings')),
+  ];
+}
+
+List<PersistentBottomNavBarItem> _navBarsItems() {
+  return [
+    PersistentBottomNavBarItem(
+      icon: const Icon(Icons.home),
+      inactiveIcon: const Icon(Icons.home_outlined),
+      // title: 'Home',
+      activeColorPrimary: Colors.white,
+      inactiveColorPrimary: Colors.white,
+    ),
+    PersistentBottomNavBarItem(
+      icon: const Icon(Icons.search),
+      inactiveIcon: const Icon(Icons.search_outlined),
+      // title: 'Search',
+      activeColorPrimary: Colors.white,
+      inactiveColorPrimary: Colors.white,
+    ),
+    PersistentBottomNavBarItem(
+      icon: const Icon(Icons.wb_sunny),
+      inactiveIcon: const Icon(Icons.wb_sunny_outlined),
+      // title: 'Weather',
+      activeColorPrimary: Colors.white,
+      inactiveColorPrimary: Colors.white,
+    ),
+    PersistentBottomNavBarItem(
+      icon: const Icon(Icons.settings),
+      inactiveIcon: const Icon(Icons.settings_outlined),
+      // title: 'Settings',
+      activeColorPrimary: Colors.white,
+      inactiveColorPrimary: Colors.white,
+    ),
+  ];
+}

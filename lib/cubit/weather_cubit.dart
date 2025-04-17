@@ -2,37 +2,38 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/api/api_consumer.dart';
 import 'package:weather/api/end_point.dart';
 import 'package:weather/api/errors/exception.dart';
+import 'package:weather/cubit/weather_state.dart';
+import 'package:weather/models/forecast_item_model.dart';
 import 'package:weather/models/parent_models/current_weather_model.dart';
 import 'package:weather/models/parent_models/forecast_model.dart';
 import 'package:weather/services/location_service.dart';
-import 'weather_state.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit(this.api) : super(WeatherInitial());
 
   final ApiConsumer api;
 
-  double lat = 0.0;
-  double lon = 0.0;
+  double _lat = 0.0;
+  double _lon = 0.0;
 
   // get current location
-  Future<void> fetchLocation() async {
+  Future<void> initializeLocation() async {
     final location = await getLocation();
-    lat = location.latitude;
-    lon = location.longitude;
+    _lat = location.latitude;
+    _lon = location.longitude;
   }
 
   // get current weather by coordinates
   Future<void> getCurrentWeatherByCoord() async {
     emit(CurrentWeatherCoordLoading());
     try {
-      await fetchLocation();
+      await initializeLocation();
       final response = await api.get(
         EndPoint.currentWeather,
         queryParameters: {
           ApiKey.appid: EndPoint.weatherApiKey,
-          ApiKey.lat: lat,
-          ApiKey.lon: lon,
+          ApiKey.lat: _lat,
+          ApiKey.lon: _lon,
           ApiKey.units: ApiKey.metric,
         },
       );
@@ -72,13 +73,13 @@ class WeatherCubit extends Cubit<WeatherState> {
   Future<void> getForecastWeatherByCoord() async {
     emit(ForecastWeatherCoordLoading());
     try {
-      await fetchLocation();
+      await initializeLocation();
       final response = await api.get(
         EndPoint.forecast,
         queryParameters: {
           ApiKey.appid: EndPoint.weatherApiKey,
-          ApiKey.lat: lat,
-          ApiKey.lon: lon,
+          ApiKey.lat: _lat,
+          ApiKey.lon: _lon,
           ApiKey.units: ApiKey.metric,
         },
       );
@@ -112,5 +113,18 @@ class WeatherCubit extends Cubit<WeatherState> {
     } catch (e) {
       emit(ForecastWeatherCityFailure(error: e.toString()));
     }
+  }
+
+  // fillter the forecast data to get hourly data
+  List<ForecastItemModel> todyForecastList(List<ForecastItemModel> forecastList) {
+    final today = DateTime.now();
+
+    return forecastList.where((forecast) {
+      final date = DateTime.fromMillisecondsSinceEpoch(forecast.dt * 1000, isUtc: true)
+      .toLocal();
+      return date.day == today.day &&
+          date.month == today.month &&
+          date.year == today.year;
+    }).toList();
   }
 }
