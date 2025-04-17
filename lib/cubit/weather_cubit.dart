@@ -17,7 +17,7 @@ class WeatherCubit extends Cubit<WeatherState> {
   double _lon = 0.0;
 
   // get current location
-  Future<void> initializeLocation() async {
+  Future<void> _initializeLocation() async {
     final location = await getLocation();
     _lat = location.latitude;
     _lon = location.longitude;
@@ -27,7 +27,7 @@ class WeatherCubit extends Cubit<WeatherState> {
   Future<void> getCurrentWeatherByCoord() async {
     emit(CurrentWeatherCoordLoading());
     try {
-      await initializeLocation();
+      await _initializeLocation();
       final response = await api.get(
         EndPoint.currentWeather,
         queryParameters: {
@@ -73,7 +73,7 @@ class WeatherCubit extends Cubit<WeatherState> {
   Future<void> getForecastWeatherByCoord() async {
     emit(ForecastWeatherCoordLoading());
     try {
-      await initializeLocation();
+      await _initializeLocation();
       final response = await api.get(
         EndPoint.forecast,
         queryParameters: {

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/cubit/weather_cubit.dart';
 import 'package:weather/cubit/weather_state.dart';
-import 'package:weather/utils/app_colors.dart';
+import 'package:weather/models/forecast_item_model.dart';
 import 'package:weather/utils/app_strings.dart';
 import 'package:weather/utils/app_text_style.dart';
 import 'package:weather/utils/extensions.dart';
-import 'package:weather/utils/weather_icons.dart';
+import 'package:weather/views/screens/home/widgets/hourly_weather_card.dart';
 
 class HourlyWeatherSection extends StatelessWidget {
   const HourlyWeatherSection({super.key});
@@ -21,7 +21,8 @@ class HourlyWeatherSection extends StatelessWidget {
           );
         } else if (state is ForecastWeatherCoordSuccess) {
           final cubit = context.read<WeatherCubit>();
-          final todayList = cubit.todyForecastList(state.forecastModel.list);
+          List<ForecastItemModel> todayList =
+              cubit.todyForecastList(state.forecastModel.list);
 
           return LayoutBuilder(builder: (context, constraints) {
             // get current scrren width
@@ -48,6 +49,7 @@ class HourlyWeatherSection extends StatelessWidget {
                       id: forecast.weather[0].id,
                       hour: forecast.dt.time,
                       temp: forecast.main.temp.round(),
+                      isActive: index == 0,
                     );
                   },
                 ),
@@ -63,52 +65,6 @@ class HourlyWeatherSection extends StatelessWidget {
           );
         }
       },
-    );
-  }
-}
-
-class HourlyWeatherCard extends StatelessWidget {
-  const HourlyWeatherCard(
-      {super.key, required this.id, required this.hour, required this.temp});
-
-  final int id;
-  final String hour;
-  final int temp;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5),
-      padding: const EdgeInsets.all(8),
-      width: 120,
-      decoration: BoxDecoration(
-        color: AppColors.accentBlue,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Row(
-        children: [
-          Image.asset(
-            getWeatherIcon(weatherCode: id),
-            width: 50,
-            fit: BoxFit.cover,
-          ),
-          const SizedBox(width: 10),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                hour,
-                style: const TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                '${temp.round()}°',
-                style: AppTextStyle.h3,
-              ),
-            ],
-          )
-        ],
-      ),
     );
   }
 }
