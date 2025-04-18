@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:weather/utils/app_colors.dart';
 import 'package:weather/views/screens/home/home_screen.dart';
+import 'package:weather/views/screens/search/search_screen.dart';
 
 PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 
@@ -25,7 +26,7 @@ class PersistentBottomNavBar extends StatelessWidget {
 List<Widget> _buildScreens() {
   return [
     const HomeScreen(),
-    const Center(child: Text('Search')),
+    const SearchScreen(),
     const Center(child: Text('Profile')),
     const Center(child: Text('Settings')),
   ];

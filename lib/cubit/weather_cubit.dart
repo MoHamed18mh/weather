@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/api/api_consumer.dart';
 import 'package:weather/api/end_point.dart';
@@ -14,6 +15,7 @@ class WeatherCubit extends Cubit<WeatherState> {
 
   double _lat = 0.0;
   double _lon = 0.0;
+  TextEditingController controller = TextEditingController();
 
   // get current location
   Future<void> _initializeLocation() async {

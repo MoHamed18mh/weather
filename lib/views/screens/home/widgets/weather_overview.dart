@@ -18,7 +18,6 @@ class WeatherOverView extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         // the name of the city
         Text(name, style: AppTextStyle.h1),
