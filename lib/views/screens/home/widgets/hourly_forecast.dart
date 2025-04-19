@@ -22,11 +22,11 @@ class HourlyForecast extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // hourly weather title
+              /// hourly forecast title
               const Text(AppStrings.today, style: AppTextStyle.h2),
               const SizedBox(height: 10),
 
-              // hourly weather section
+              /// display hourly forecast section
               SizedBox(
                 height: 80,
                 child: ListView.builder(
@@ -37,7 +37,7 @@ class HourlyForecast extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final forecast = state.forecastModel.list[index];
                     return HourlyItem(
-                      id: forecast.weather[0].id,
+                      icon: forecast.weather[0].icon.replaceAll('n', 'd'),
                       hour: forecast.dt.time,
                       temp: forecast.main.temp.round(),
                       isActive: index == 0,

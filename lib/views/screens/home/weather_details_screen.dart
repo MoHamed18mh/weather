@@ -19,18 +19,17 @@ class WeatherDetailsScreen extends StatelessWidget {
         slivers: [
           SliverToBoxAdapter(child: SizedBox(height: size.height * .2)),
 
-          // the current weather section
           SliverToBoxAdapter(
             child: Column(
               children: [
-                // the name of the city
+                /// the name of the city
                 Text(currentWeather.name, style: AppTextStyle.h1),
 
-                // the date and time of the weather
+                /// the date and time of day
                 Text(DateTime.now().dateTime, style: AppTextStyle.subtitleText),
                 const SizedBox(height: 25),
 
-                // the icon that descreption the weather
+                /// the icon that descreption the weather
                 Image.asset(
                   'assets/icons/${currentWeather.weather[0].icon.replaceAll('n', 'd')}.png',
                   height: size.height * 0.2,
@@ -38,7 +37,7 @@ class WeatherDetailsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 25),
 
-                // the description of the weather
+                /// the description of the weather
                 Text(
                   currentWeather.weather[0].description,
                   style: AppTextStyle.h3,
@@ -48,7 +47,7 @@ class WeatherDetailsScreen extends StatelessWidget {
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 30)),
 
-          // the temperature and the wind speed and the humidity
+          /// the temperature and the wind speed and the humidity
           SliverToBoxAdapter(
             child: WeatherInfo(
               temp: '${currentWeather.main.temp} °C',

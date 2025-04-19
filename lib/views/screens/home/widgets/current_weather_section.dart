@@ -24,7 +24,7 @@ class CurrentWeatherSection extends StatelessWidget {
         } else if (state is CurrentWeatherCoordSuccess) {
           return Column(
             children: [
-              // the main details about weather
+              /// the main details about weather
               WeatherOverView(
                 name: state.currentWeather.name,
                 icon: state.currentWeather.weather[0].icon.replaceAll('n', 'd'),
@@ -32,7 +32,7 @@ class CurrentWeatherSection extends StatelessWidget {
               ),
               const SizedBox(height: 30),
 
-              // the temperature and the wind speed and the humidity
+              /// the temperature and the wind speed and the humidity
               WeatherInfo(
                 temp: '${state.currentWeather.main.temp} °C',
                 windSpeed: '${state.currentWeather.wind.speed.kmh} km/h',

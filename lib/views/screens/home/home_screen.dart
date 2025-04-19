@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
         slivers: [
           SliverToBoxAdapter(child: SizedBox(height: size.height * .08)),
 
-          // the current weather section
+          /// the current weather section
           SliverToBoxAdapter(
             child: BlocProvider(
               create: (context) => WeatherCubit(DioConsumer(dio: Dio()))
@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
 
-          // the hourly weather section
+          /// the hourly weather section
           SliverToBoxAdapter(
             child: BlocProvider(
               create: (context) => WeatherCubit(DioConsumer(dio: Dio()))

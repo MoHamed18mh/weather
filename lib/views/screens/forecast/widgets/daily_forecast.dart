@@ -21,30 +21,31 @@ class DailyForecast extends StatelessWidget {
             ),
           );
         } else if (state is ForecastWeatherCoordSuccess) {
-          // fillter the forecast list to get the daily forecast
+          /// fillter the forecast list to get the daily forecast
           final dailyForecast = context
               .read<WeatherCubit>()
               .getDailyForecastList(state.forecastModel.list);
 
           return SliverGrid.builder(
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 490,
-                mainAxisExtent: 90,
-                mainAxisSpacing: 15,
-                crossAxisSpacing: 15,
-              ),
-              itemCount: dailyForecast.length,
-              itemBuilder: (context, index) {
-                final forecast = dailyForecast[index];
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 490,
+              mainAxisExtent: 90,
+              mainAxisSpacing: 15,
+              crossAxisSpacing: 15,
+            ),
+            itemCount: dailyForecast.length,
+            itemBuilder: (context, index) {
+              final forecast = dailyForecast[index];
 
-                return DailyItem(
-                  day: forecast.dtTxt.toDateTime().dayOfWeek,
-                  date: forecast.dtTxt.split(' ')[0],
-                  icon: forecast.weather[0].icon,
-                  temp: forecast.main.temp.round().toString(),
-                  isActive: index == 0,
-                );
-              });
+              return DailyItem(
+                day: forecast.dtTxt.toDateTime().dayOfWeek,
+                date: forecast.dtTxt.split(' ')[0],
+                icon: forecast.weather[0].icon,
+                temp: forecast.main.temp.round().toString(),
+                isActive: index == 0,
+              );
+            },
+          );
         } else if (state is ForecastWeatherCoordFailure) {
           return SliverToBoxAdapter(
             child: Center(

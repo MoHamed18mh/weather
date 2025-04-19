@@ -19,17 +19,17 @@ class SearchScreen extends StatelessWidget {
         slivers: [
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
 
-          // few words about searching
+          /// few words about searching
           const SliverToBoxAdapter(child: SearchOverView()),
           const SliverToBoxAdapter(child: SizedBox(height: 20)),
 
-          // search field
+          /// search field
           const SliverToBoxAdapter(
             child: SearchField(),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 20)),
 
-          // famous cities
+          /// famous cities
           SliverGrid.builder(
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 200,

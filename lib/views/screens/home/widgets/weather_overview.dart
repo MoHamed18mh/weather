@@ -19,14 +19,21 @@ class WeatherOverView extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     return Column(
       children: [
-        // the name of the city
-        Text(name, style: AppTextStyle.h1),
+        /// the name of the city
+        Text(
+          name,
+          style: AppTextStyle.h1,
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          softWrap: true,
+          overflow: TextOverflow.ellipsis,
+        ),
 
-        // the date and time of the weather
+        /// the date and time of the weather
         Text(DateTime.now().dateTime, style: AppTextStyle.subtitleText),
         const SizedBox(height: 25),
 
-        // the icon that descreption the weather
+        /// the icon that descreption the weather
         Image.asset(
           'assets/icons/$icon.png',
           height: size.height * 0.23,
@@ -34,7 +41,7 @@ class WeatherOverView extends StatelessWidget {
         ),
         const SizedBox(height: 25),
 
-        // the description of the weather
+        /// the description of the weather
         Text(
           description,
           style: AppTextStyle.h3,

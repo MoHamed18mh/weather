@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:weather/utils/app_colors.dart';
 import 'package:weather/utils/app_text_style.dart';
-import 'package:weather/utils/weather_icons.dart';
 
 class HourlyItem extends StatelessWidget {
   const HourlyItem(
       {super.key,
-      required this.id,
+      required this.icon,
       required this.hour,
       required this.temp,
       required this.isActive});
 
-  final int id;
+  final String icon;
   final String hour;
   final int temp;
   final bool isActive;
@@ -29,7 +28,7 @@ class HourlyItem extends StatelessWidget {
       child: Row(
         children: [
           Image.asset(
-            getWeatherIcon(weatherCode: id),
+            'assets/icons/$icon.png',
             width: 50,
             fit: BoxFit.cover,
           ),

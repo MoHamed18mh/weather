@@ -22,13 +22,13 @@ class CityTile extends StatelessWidget {
       children: [
         Row(
           children: [
-            // weather info
+            /// weather info
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '$temp °',
+                    '$temp°',
                     style: AppTextStyle.h3,
                   ),
                   const SizedBox(height: 6),
@@ -43,7 +43,7 @@ class CityTile extends StatelessWidget {
               ),
             ),
 
-            // weather icon
+            /// weather icon
             Image.asset(
               'assets/icons/$icon.png',
               height: 35,
@@ -51,7 +51,7 @@ class CityTile extends StatelessWidget {
           ],
         ),
 
-        // city name
+        /// city name
         Text(
           cityName,
           style: AppTextStyle.largeSubtitle,
