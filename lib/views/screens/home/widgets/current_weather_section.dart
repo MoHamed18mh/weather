@@ -40,6 +40,13 @@ class CurrentWeatherSection extends StatelessWidget {
               ),
             ],
           );
+        } else if (state is CurrentWeatherCoordFailure) {
+          return Center(
+            child: Text(
+              state.error,
+              style: AppTextStyle.h2.copyWith(color: Colors.white),
+            ),
+          );
         } else {
           return const Center(
             child: Text(

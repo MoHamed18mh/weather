@@ -5,7 +5,7 @@ import 'package:weather/api/dio_consumer.dart';
 import 'package:weather/cubit/weather_cubit.dart';
 import 'package:weather/views/core/background_gradient.dart';
 import 'package:weather/views/screens/home/widgets/current_weather_section.dart';
-import 'package:weather/views/screens/home/widgets/hourly_weather_section.dart';
+import 'package:weather/views/screens/home/widgets/hourly_forecast.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
     return BackgroundGradient(
       widget: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(child: SizedBox(height: size.height * .119)),
+          SliverToBoxAdapter(child: SizedBox(height: size.height * .08)),
 
           // the current weather section
           SliverToBoxAdapter(
@@ -33,9 +33,10 @@ class HomeScreen extends StatelessWidget {
             child: BlocProvider(
               create: (context) => WeatherCubit(DioConsumer(dio: Dio()))
                 ..getForecastWeatherByCoord(),
-              child: const HourlyWeatherSection(),
+              child: const HourlyForecast(),
             ),
           ),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
         ],
       ),
     );

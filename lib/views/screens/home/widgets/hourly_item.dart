@@ -3,8 +3,8 @@ import 'package:weather/utils/app_colors.dart';
 import 'package:weather/utils/app_text_style.dart';
 import 'package:weather/utils/weather_icons.dart';
 
-class HourlyWeatherCard extends StatelessWidget {
-  const HourlyWeatherCard(
+class HourlyItem extends StatelessWidget {
+  const HourlyItem(
       {super.key,
       required this.id,
       required this.hour,

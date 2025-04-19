@@ -4,6 +4,7 @@ import 'package:weather/api/api_consumer.dart';
 import 'package:weather/api/end_point.dart';
 import 'package:weather/api/errors/exception.dart';
 import 'package:weather/cubit/weather_state.dart';
+import 'package:weather/models/forecast_item_model.dart';
 import 'package:weather/models/parent_models/current_weather_model.dart';
 import 'package:weather/models/parent_models/forecast_model.dart';
 import 'package:weather/services/location_service.dart';
@@ -17,14 +18,14 @@ class WeatherCubit extends Cubit<WeatherState> {
   double _lon = 0.0;
   TextEditingController controller = TextEditingController();
 
-  // get current location
+  /// get current location
   Future<void> _initializeLocation() async {
     final location = await getLocation();
     _lat = location.latitude;
     _lon = location.longitude;
   }
 
-  // get current weather by coordinates
+  /// get current weather by coordinates
   Future<void> getCurrentWeatherByCoord() async {
     emit(CurrentWeatherCoordLoading());
     try {
@@ -48,7 +49,7 @@ class WeatherCubit extends Cubit<WeatherState> {
     }
   }
 
-  // get current weather by city name
+  /// get current weather by city name
   Future<void> getCurrentWeatherByCityName(String cityName) async {
     emit(CurrentWeatherCityLoading());
     try {
@@ -70,10 +71,11 @@ class WeatherCubit extends Cubit<WeatherState> {
     }
   }
 
-  // get forecast weather by coordinates
+  /// get forecast weather by coordinates
   Future<void> getForecastWeatherByCoord() async {
     emit(ForecastWeatherCoordLoading());
     try {
+      await _initializeLocation();
       final response = await api.get(
         EndPoint.forecast,
         queryParameters: {
@@ -93,7 +95,7 @@ class WeatherCubit extends Cubit<WeatherState> {
     }
   }
 
-  // get forecast weather by city name
+  /// get forecast weather by city name
   Future<void> getForecastWeatherByCityName(String cityName) async {
     emit(ForecastWeatherCityLoading());
     try {
@@ -113,5 +115,29 @@ class WeatherCubit extends Cubit<WeatherState> {
     } catch (e) {
       emit(ForecastWeatherCityFailure(error: e.toString()));
     }
+  }
+
+  /// One prediction for each day
+  List<ForecastItemModel> getDailyForecastList(List<ForecastItemModel> list) {
+
+    // map to store the daily forecast
+    final Map<String, ForecastItemModel> dailyForecast = {};
+
+    // fillter all forecast to get a one forecast to day
+    // and get the forecast at 12:00:00
+    for (ForecastItemModel item in list) {
+      final date = item.dtTxt.split(' ')[0];
+      final time = item.dtTxt.split(' ')[1];
+      if (!dailyForecast.containsKey(date)) {
+        dailyForecast[date] = item;
+      } else {
+        if (time == '12:00:00') {
+          dailyForecast[date] = item;
+        }
+      }
+    }
+
+    // return the daily forecast as list
+    return dailyForecast.values.toList();
   }
 }

@@ -8,12 +8,16 @@ class BackgroundGradient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // horizontal padding of screen
+    final size = MediaQuery.sizeOf(context);
+    final horizontalPadding =
+        ((size.width < 580) ? 18 : size.width * 0.094).toDouble();
     return SafeArea(
       child: Scaffold(
         body: Container(
           height: double.infinity,
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             gradient: LinearGradient(
