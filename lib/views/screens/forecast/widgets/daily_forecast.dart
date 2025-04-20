@@ -40,7 +40,7 @@ class DailyForecast extends StatelessWidget {
               return DailyItem(
                 day: forecast.dtTxt.toDateTime().dayOfWeek,
                 date: forecast.dtTxt.split(' ')[0],
-                icon: forecast.weather[0].icon,
+                icon: forecast.weather[0].icon.replaceAll('n', 'd'),
                 temp: forecast.main.temp.round().toString(),
                 isActive: index == 0,
               );

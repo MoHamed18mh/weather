@@ -37,7 +37,6 @@ List<Widget> _buildScreens() {
           WeatherCubit(DioConsumer(dio: Dio()))..getForecastWeatherByCoord(),
       child: const ForecastScreen(),
     ),
-    const Center(child: Text('Settings')),
   ];
 }
 
@@ -61,13 +60,6 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
       icon: const Icon(Icons.wb_sunny),
       inactiveIcon: const Icon(Icons.wb_sunny_outlined),
       // title: 'Weather',
-      activeColorPrimary: Colors.white,
-      inactiveColorPrimary: Colors.white,
-    ),
-    PersistentBottomNavBarItem(
-      icon: const Icon(Icons.settings),
-      inactiveIcon: const Icon(Icons.settings_outlined),
-      // title: 'Settings',
       activeColorPrimary: Colors.white,
       inactiveColorPrimary: Colors.white,
     ),
