@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather/cubit/weather_cubit.dart';
-import 'package:weather/cubit/weather_state.dart';
+import 'package:weather/cubit/weather_coord_cubit.dart';
+import 'package:weather/cubit/weather_coord_state.dart';
 import 'package:weather/utils/app_strings.dart';
 import 'package:weather/utils/app_text_style.dart';
 import 'package:weather/utils/extensions.dart';
 import 'package:weather/views/screens/home/widgets/weather_info.dart';
 import 'package:weather/views/screens/home/widgets/weather_overview.dart';
 
-class CurrentWeatherSection extends StatelessWidget {
-  const CurrentWeatherSection({
+class CurrentWeatherDisplay extends StatelessWidget {
+  const CurrentWeatherDisplay({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WeatherCubit, WeatherState>(
+    return BlocBuilder<WeatherCoordCubit, WeatherCoordState>(
       builder: (context, state) {
-        if (state is CurrentWeatherCoordLoading) {
+        if (state is WeatherCoordLoading) {
           return const Center(
             child: CircularProgressIndicator(color: Colors.white),
           );
-        } else if (state is CurrentWeatherCoordSuccess) {
+        } else if (state is WeatherCoordSuccess) {
           return Column(
             children: [
               /// the main details about weather
@@ -40,7 +40,7 @@ class CurrentWeatherSection extends StatelessWidget {
               ),
             ],
           );
-        } else if (state is CurrentWeatherCoordFailure) {
+        } else if (state is WeatherCoordFailure) {
           return Center(
             child: Text(
               state.error,

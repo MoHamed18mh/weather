@@ -1,9 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:weather/api/dio_consumer.dart';
-import 'package:weather/cubit/weather_cubit.dart';
 import 'package:weather/utils/app_colors.dart';
 import 'package:weather/views/screens/forecast/forecast_screen.dart';
 import 'package:weather/views/screens/home/home_screen.dart';
@@ -32,11 +28,7 @@ List<Widget> _buildScreens() {
   return [
     const HomeScreen(),
     const SearchScreen(),
-    BlocProvider(
-      create: (context) =>
-          WeatherCubit(DioConsumer(dio: Dio()))..getForecastWeatherByCoord(),
-      child: const ForecastScreen(),
-    ),
+    const ForecastScreen(),
   ];
 }
 

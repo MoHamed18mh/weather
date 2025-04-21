@@ -10,7 +10,6 @@ class SearchTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Expanded(
       child: TextField(
-        // controller: context.watch<WeatherCubit>().controller,
         style: AppTextStyle.h3,
         decoration: InputDecoration(
           hintText: AppStrings.search,

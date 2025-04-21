@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather/cubit/weather_cubit.dart';
-import 'package:weather/cubit/weather_state.dart';
+import 'package:weather/cubit/forecast_coord_cubit.dart';
+import 'package:weather/cubit/forecast_coord_state.dart';
 import 'package:weather/utils/app_strings.dart';
 import 'package:weather/utils/app_text_style.dart';
 import 'package:weather/utils/extensions.dart';
 import 'package:weather/views/screens/home/widgets/hourly_item.dart';
 
-class HourlyForecast extends StatelessWidget {
-  const HourlyForecast({super.key});
+class HourlyForecastDisplay extends StatelessWidget {
+  const HourlyForecastDisplay({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WeatherCubit, WeatherState>(
+    return BlocBuilder<ForecastCoordCubit, ForecastCoordState>(
       builder: (context, state) {
-        if (state is ForecastWeatherCoordLoading) {
+        if (state is ForecastCoordLoading) {
           return const Center(
             child: CircularProgressIndicator(color: Colors.white),
           );
-        } else if (state is ForecastWeatherCoordSuccess) {
+        } else if (state is ForecastCoordSuccess) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -47,7 +47,7 @@ class HourlyForecast extends StatelessWidget {
               ),
             ],
           );
-        } else if (state is ForecastWeatherCoordFailure) {
+        } else if (state is ForecastCoordFailure) {
           return Center(
             child: Text(
               state.error,

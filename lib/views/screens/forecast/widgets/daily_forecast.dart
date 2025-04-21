@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather/cubit/weather_cubit.dart';
-import 'package:weather/cubit/weather_state.dart';
+import 'package:weather/cubit/forecast_coord_cubit.dart';
+import 'package:weather/cubit/forecast_coord_state.dart';
 import 'package:weather/utils/app_strings.dart';
 import 'package:weather/utils/app_text_style.dart';
 import 'package:weather/utils/extensions.dart';
@@ -12,18 +12,18 @@ class DailyForecast extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WeatherCubit, WeatherState>(
+    return BlocBuilder<ForecastCoordCubit, ForecastCoordState>(
       builder: (context, state) {
-        if (state is ForecastWeatherCoordLoading) {
+        if (state is ForecastCoordLoading) {
           return const SliverToBoxAdapter(
             child: Center(
               child: CircularProgressIndicator(color: Colors.white),
             ),
           );
-        } else if (state is ForecastWeatherCoordSuccess) {
+        } else if (state is ForecastCoordSuccess) {
           /// fillter the forecast list to get the daily forecast
           final dailyForecast = context
-              .read<WeatherCubit>()
+              .read<ForecastCoordCubit>()
               .getDailyForecastList(state.forecastModel.list);
 
           return SliverGrid.builder(
@@ -46,7 +46,7 @@ class DailyForecast extends StatelessWidget {
               );
             },
           );
-        } else if (state is ForecastWeatherCoordFailure) {
+        } else if (state is ForecastCoordFailure) {
           return SliverToBoxAdapter(
             child: Center(
               child: Text(

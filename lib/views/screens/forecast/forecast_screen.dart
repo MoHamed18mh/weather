@@ -23,7 +23,7 @@ class ForecastScreen extends StatelessWidget {
           SliverToBoxAdapter(child: SizedBox(height: 40)),
 
           // hourly forecast
-          SliverToBoxAdapter(child: HourlyForecast()),
+          SliverToBoxAdapter(child: HourlyForecastDisplay()),
           SliverToBoxAdapter(child: SizedBox(height: 30)),
 
           // daily forecast

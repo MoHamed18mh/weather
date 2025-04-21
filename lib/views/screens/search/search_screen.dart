@@ -2,12 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/api/dio_consumer.dart';
-import 'package:weather/cubit/weather_cubit.dart';
+import 'package:weather/cubit/weather_city_cubit.dart';
 import 'package:weather/models/parent_models/famous_cities_model.dart';
 import 'package:weather/views/core/background_gradient.dart';
 import 'package:weather/views/screens/search/widgets/famous_city.dart';
-import 'package:weather/views/screens/search/widgets/search_field.dart';
 import 'package:weather/views/screens/search/widgets/search_overview.dart';
+import 'package:weather/views/screens/search/widgets/search_text_field.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -24,9 +24,7 @@ class SearchScreen extends StatelessWidget {
           const SliverToBoxAdapter(child: SizedBox(height: 20)),
 
           /// search field
-          const SliverToBoxAdapter(
-            child: SearchField(),
-          ),
+          const SliverToBoxAdapter(child: SearchTextField()),
           const SliverToBoxAdapter(child: SizedBox(height: 20)),
 
           /// famous cities
@@ -39,10 +37,9 @@ class SearchScreen extends StatelessWidget {
             ),
             itemCount: famousCities.length,
             itemBuilder: (context, index) {
-              final city = famousCities[index];
               return BlocProvider(
-                create: (context) => WeatherCubit(DioConsumer(dio: Dio()))
-                  ..getCurrentWeatherByCityName(city),
+                create: (context) => WeatherCityCubit(DioConsumer(dio: Dio()))
+                  ..fetchWeatherByCity(famousCities[index]),
                 child: const FamousCity(),
               );
             },

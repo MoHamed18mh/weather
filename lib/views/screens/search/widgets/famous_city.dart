@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather/cubit/weather_cubit.dart';
-import 'package:weather/cubit/weather_state.dart';
+import 'package:weather/cubit/weather_city_cubit.dart';
+import 'package:weather/cubit/weather_city_state.dart';
 import 'package:weather/utils/app_colors.dart';
 import 'package:weather/utils/app_strings.dart';
 import 'package:weather/utils/app_text_style.dart';
@@ -13,7 +13,7 @@ class FamousCity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WeatherCubit, WeatherState>(
+    return BlocBuilder<WeatherCityCubit, WeatherCityState>(
       builder: (context, state) {
         return Container(
           alignment: Alignment.center,
@@ -22,9 +22,9 @@ class FamousCity extends StatelessWidget {
             color: AppColors.accentBlue,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: (state is CurrentWeatherCityLoading)
+          child: (state is WeatherCityLoading)
               ? const CircularProgressIndicator(color: Colors.white)
-              : (state is CurrentWeatherCitySuccess)
+              : (state is WeatherCitySuccess)
                   ? InkWell(
                       onTap: () => Navigator.push(
                         context,
@@ -43,7 +43,9 @@ class FamousCity extends StatelessWidget {
                         cityName: state.currentWeather.name,
                       ),
                     )
-                  : const Text(AppStrings.error, style: AppTextStyle.error),
+                  : (state is WeatherCityFailure)
+                      ? Text(state.error, style: AppTextStyle.error)
+                      : const Text(AppStrings.error, style: AppTextStyle.error),
         );
       },
     );
