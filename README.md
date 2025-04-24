@@ -3,8 +3,8 @@
 weather application
 
 ## App UI
-![Home Screen](docs/UI/home screen.png)
-![Forecast Screen](docs/UI/forecast screen.png)
-![Search Result](docs/UI/search result.png)
-![Search Screen](docs/UI/search screen.png)
-![Weather Details Screen](docs/UI/weather details screen.png)
+![Home Screen](docs/UI/home_screen.png)
+![Forecast Screen](docs/UI/forecast_screen.png)
+![Search Result](docs/UI/search_result.png)
+![Search Screen](docs/UI/search_screen.png)
+![Weather Details Screen](docs/UI/weather_details_screen.png)
