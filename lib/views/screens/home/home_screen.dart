@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather/views/core/background_gradient.dart';
 import 'package:weather/views/screens/home/widgets/current_weather_display.dart';
-import 'package:weather/views/screens/home/widgets/hourly_forecast.dart';
+import 'package:weather/views/screens/home/widgets/hourly_forecast_display.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

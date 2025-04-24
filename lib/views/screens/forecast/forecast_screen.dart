@@ -3,7 +3,7 @@ import 'package:weather/utils/app_strings.dart';
 import 'package:weather/utils/app_text_style.dart';
 import 'package:weather/views/core/background_gradient.dart';
 import 'package:weather/views/screens/forecast/widgets/daily_forecast.dart';
-import 'package:weather/views/screens/home/widgets/hourly_forecast.dart';
+import 'package:weather/views/screens/home/widgets/hourly_forecast_display.dart';
 
 class ForecastScreen extends StatelessWidget {
   const ForecastScreen({super.key});
@@ -28,7 +28,8 @@ class ForecastScreen extends StatelessWidget {
 
           // daily forecast
           SliverToBoxAdapter(
-              child: Text(AppStrings.nextForecast, style: AppTextStyle.h2)),
+            child: Text(AppStrings.nextForecast, style: AppTextStyle.h2),
+          ),
           SliverToBoxAdapter(child: SizedBox(height: 10)),
           DailyForecast(),
           SliverToBoxAdapter(child: SizedBox(height: 20)),
